@@ -113,7 +113,7 @@ Fork the repo, setup virtualenv and pip install
 >>> cd <fork-repo>
 >>> virtualenv -p python3 venv
 >>> source venv/bin/activate
->>> pip install
+>>> pip install -r requirements.txt
 ```
 
 Create a .env file with working kafka information (that includes 2 working topics at the moment). 
