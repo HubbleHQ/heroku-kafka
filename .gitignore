@@ -1,0 +1,11 @@
+# Python
+venv
+__pycache__
+
+# Editor
+.vscode
+
+# Private Files
+.env
+*.crt
+*.key
