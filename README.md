@@ -90,7 +90,7 @@ consumer.subscribe(topics=('topic_without_prefix'))
 consumer.assign([TopicPartition('topic_with_prefix', 2)])
 
 """
-To listening to events it is exactly the same as in kafka_python.
+Listening to events it is exactly the same as in kafka_python.
 Read the documention linked below for more info!
 """
 for msg in consumer:
@@ -101,7 +101,7 @@ For all other methods and properties refer to: [KafkaConsumer Docs](https://kafk
 
 ## Known Issues 
 - `.assign` does not add in the topic prefix.
-- The certificate files that are created and permanent and so need to be .gitignore'd.
+- The certificate files that are created are permanent and so need to be .gitignore'd.
 
 ## Contribution
 If you come across any issues feel free to fork and create a PR!
@@ -135,5 +135,5 @@ All tests at the moment require a working kafka setup as its pretty hard to chec
 
 To run the tests:
 ```bash
-python test.py
+>>> python test.py
 ```
