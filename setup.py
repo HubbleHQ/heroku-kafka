@@ -16,7 +16,7 @@ setup(
     description='Python kafka package for use with heroku\'s kafka.',
     long_description=long_description,
     classifiers=[
-        'Development Status :: 5 - Production/Stable'
+        'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',

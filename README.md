@@ -12,13 +12,6 @@ The easiest way to install the package is through pip.
 pip install heroku-kafka
 ```
 
-Add the certificates to your `.gitignore` to make sure you don't push them up.
-Ideally the certs will be temp files however that has not been done yet.
-```
-*.crt
-*.key
-```
-
 ## Usage
 
 This package uses the [kafka-python package](https://github.com/dpkp/kafka-python) and the `HerokuKafkaProducer` and `HerokuKafkaConsumer` classes both inherit from the kafka-python base classes, and will contain all the same methods.
@@ -101,7 +94,7 @@ For all other methods and properties refer to: [KafkaConsumer Docs](https://kafk
 
 ## Known Issues 
 - `.assign` does not add in the topic prefix.
-- The certificate files that are created are permanent and so need to be .gitignore'd.
+- .NamedTemporaryFile may not work properly on a Windows system
 
 ## Contribution
 If you come across any issues feel free to fork and create a PR!

@@ -1,4 +1,5 @@
 import collections
+import tempfile
 try:
     from urllib.parse import urlparse
 except ImportError:
@@ -15,9 +16,9 @@ class HerokuKafka():
         self.kafka_url = url
         self.topic_prefix = prefix
         self.ssl = {
-            "cert": {"name": "./client.crt", "content": ssl_cert},
-            "key": {"name": "./client.key", "content": ssl_key},
-            "ca": {"name": "./ca.crt", "content": ssl_ca}
+            "cert": {"suffix": ".crt", "content": ssl_cert},
+            "key": {"suffix": ".key", "content": ssl_key},
+            "ca": {"suffix": ".crt", "content": ssl_ca}
         }
 
         self.config = kwargs
@@ -33,9 +34,9 @@ class HerokuKafka():
         config = {
             "bootstrap_servers": self.get_brokers(),
             "security_protocol": 'SSL',
-            "ssl_cafile": self.ssl["ca"]["name"],
-            "ssl_certfile": self.ssl["cert"]["name"],
-            "ssl_keyfile": self.ssl["key"]["name"],
+            "ssl_cafile": self.ssl["ca"]["file"].name,
+            "ssl_certfile": self.ssl["cert"]["file"].name,
+            "ssl_keyfile": self.ssl["key"]["file"].name,
             "ssl_check_hostname": False,
             "ssl_password": None
         }
@@ -54,16 +55,18 @@ class HerokuKafka():
         Creates SSL cert files
         """
         for key, file in self.ssl.items():
-            self.create_file(file["name"], file["content"])
+            file["file"] = self.create_temp_file(file["suffix"], file["content"])
 
-    def create_file(self, filename, content):
+
+    def create_temp_file(self, suffix, content):
         """ 
         Creates file, because environment variables are by default escaped it
         encodes and then decodes them before write so \n etc. work correctly.
         """
-        file = open('./' + filename, "w")
-        file.write(content.encode('latin1').decode('unicode_escape'))
-        file.close()
+        temp = tempfile.NamedTemporaryFile(suffix=suffix)
+        temp.write(content.encode('latin1').decode('unicode_escape').encode('utf-8'))
+        temp.seek(0) # Resets the temp file line to 0
+        return temp
 
     def prefix_topic(self, topics):
         """

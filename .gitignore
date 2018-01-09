@@ -1,3 +1,6 @@
+# os
+.DS_Store
+
 # Python
 venv
 __pycache__
@@ -18,5 +21,3 @@ __pycache__
 
 # Private Files
 .env
-*.crt
-*.key
