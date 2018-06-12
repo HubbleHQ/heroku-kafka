@@ -28,7 +28,7 @@ jobs:
             - "/usr/local/lib/python2.7/site-packages"
       - run:
           command: |
-            pipenv run "python manage.py test"
+            pipenv run "python test.py"
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -40,7 +40,7 @@ jobs:
     working_directory: ~/repo
     docker:
       # the Docker image with Cypress dependencies
-      - image: python:3.7
+      - image: python:3.6
         environment:
           ## this enables colors in the output
           TERM: xterm
@@ -59,10 +59,10 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python2.7/site-packages"
+            - "/usr/local/lib/python3.6/site-packages"
       - run:
           command: |
-            pipenv run "python manage.py test"
+            pipenv run "python test.py"
       - store_test_results:
           path: test-results
       - store_artifacts:
@@ -75,3 +75,4 @@ workflows:
     jobs:
       - build_python2
       - build_python3
+
