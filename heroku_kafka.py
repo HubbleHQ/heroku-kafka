@@ -93,14 +93,14 @@ class HerokuKafkaProducer(KafkaProducer):
         that python_kafka understands.
         """
         self.heroku_kafka = HerokuKafka(**kwargs)
-        super().__init__(*args, **self.heroku_kafka.config)
+        super(HerokuKafkaProducer, self).__init__(*args, **self.heroku_kafka.config)
 
     def send(self, topic, *args, **kwargs):
         """
         Appends the prefix to the topic before sendingf
         """
         prefix_topic = self.heroku_kafka.prefix_topic(topic)
-        super().send(prefix_topic, *args, **kwargs)
+        return super(HerokuKafkaProducer, self).send(prefix_topic, *args, **kwargs)
 
 
 class HerokuKafkaConsumer(KafkaConsumer):
@@ -117,10 +117,10 @@ class HerokuKafkaConsumer(KafkaConsumer):
         """
         self.heroku_kafka = HerokuKafka(**kwargs)
         prefix_topics = self.heroku_kafka.prefix_topic(topics)
-        super().__init__(*prefix_topics, **self.heroku_kafka.config)
+        super(HerokuKafkaConsumer, self).__init__(*prefix_topics, **self.heroku_kafka.config)
 
     def subscribe(self, topics=(), *args, **kwargs):
         prefix_topics = self.heroku_kafka.prefix_topic(topics)
-        super().subscribe(topics=prefix_topics, *args, **kwargs)
+        return super(HerokuKafkaConsumer, self).subscribe(topics=prefix_topics, *args, **kwargs)
 
 

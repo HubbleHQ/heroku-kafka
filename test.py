@@ -38,7 +38,20 @@ class TestKafka(unittest.TestCase):
         Test that no errors are thrown, and it doesn't hang when you send a message
         """
         producer = HerokuKafkaProducer(**kafka_params)
-        producer.send(TOPIC1, b"some message")
+        #producer.send(TOPIC1, b"some message")
+        producer.flush() # Force event send
+        producer.close()
+
+    def test_kafka_message_send_with_key(self):
+        """
+        Test that no errors are thrown, and it doesn't hang when you send a message
+        """
+        producer = HerokuKafkaProducer(**kafka_params)
+        result = producer.send(
+            topic=TOPIC1, 
+            key=b"hello",
+            value=b"some message"
+            )
         producer.flush() # Force event send
         producer.close()
 
