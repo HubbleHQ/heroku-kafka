@@ -3,6 +3,7 @@
 
 # Python
 venv
+venv3
 __pycache__
 
 # Compiled python modules.

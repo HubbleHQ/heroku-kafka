@@ -130,3 +130,6 @@ To run the tests:
 ```bash
 >>> python test.py
 ```
+
+## Distribution
+To distribute the package follow these instructions:[https://packaging.python.org/tutorials/packaging-projects/](https://packaging.python.org/tutorials/packaging-projects/).
