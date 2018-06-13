@@ -1,4 +1,4 @@
-# Heroku Kafka
+# Heroku Kafka &middot; [![CircleCI](https://circleci.com/gh/HubbleHQ/heroku-kafka.svg?style=shield)](https://circleci.com/gh/HubbleHQ/heroku-kafka)
 
 **THIS IS AN UNOFFICIAL PACKAGE**
 
@@ -130,3 +130,6 @@ To run the tests:
 ```bash
 >>> python test.py
 ```
+
+## Distribution
+To distribute the package follow these instructions:[https://packaging.python.org/tutorials/packaging-projects/](https://packaging.python.org/tutorials/packaging-projects/).
