@@ -1,4 +1,4 @@
-# Heroku Kafka
+# Heroku Kafka &middot; [![CircleCI](https://circleci.com/gh/HubbleHQ/heroku-kafka.svg?style=shield)](https://circleci.com/gh/HubbleHQ/heroku-kafka)
 
 **THIS IS AN UNOFFICIAL PACKAGE**
 
