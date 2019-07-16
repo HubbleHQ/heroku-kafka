@@ -1,14 +1,21 @@
 export PROJECT_NAME := $(notdir $(CURDIR))
-PYTHON_2_BUILD := hbl/heroku-kafka:python2.7
-PYTHON_3_BUILD := hbl/heroku-kafka:python3.7
+PYTHON_2_BUILD := python2
+PYTHON_3_BUILD := python3
 
 .PHONY: dev-build
 dev-build:
-	docker build ./ -f dockerfiles/python2.7/Dockerfile -t $(PYTHON_2_BUILD) \
-	&& docker build ./ -f dockerfiles/python3.7/Dockerfile -t $(PYTHON_3_BUILD)
+	docker-compose build
 
 .PHONY: dev-test
 dev-test:
-	docker run  --env-file .env $(PYTHON_2_BUILD) python test.py
-	docker run  --env-file .env $(PYTHON_3_BUILD) python test.py
+	docker-compose run --rm $(PYTHON_2_BUILD) python test.py
+	docker-compose run --rm $(PYTHON_3_BUILD) python test.py
+
+package:
+	docker-compose run --rm $(PYTHON_3_BUILD) python setup.py sdist bdist_wheel
+
+.PHONY: upload
+upload:
+	docker-compose run $(PYTHON_3_BUILD) python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
 

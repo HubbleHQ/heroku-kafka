@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  build_python2:
+  test_python2:
     # Main build process
     working_directory: ~/repo
     docker:
@@ -31,7 +31,7 @@ jobs:
           path: test-results
           destination: tr1
 
-  build_python3:
+  test_python3:
     # Main build process
     working_directory: ~/repo
     docker:
@@ -65,5 +65,5 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build_python2
-      - build_python3
+      - test_python2
+      - test_python3
