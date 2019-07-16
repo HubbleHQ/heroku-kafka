@@ -142,4 +142,13 @@ To run the tests:
 
 ## Distribution
 
-To distribute the package follow these instructions:[https://packaging.python.org/tutorials/packaging-projects/](https://packaging.python.org/tutorials/packaging-projects/).
+To create & upload the package:
+
+```bash
+>>> make package
+>>> make upload
+```
+
+NOTE: You will need to login to PIP to upload the package.
+
+[https://packaging.python.org/tutorials/packaging-projects/](https://packaging.python.org/tutorials/packaging-projects/)
