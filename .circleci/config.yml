@@ -14,7 +14,7 @@ jobs:
       - checkout
       - restore_cache:
           key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run: 
+      - run:
           name: Pip Install
           command: pip install -r requirements.txt
       - save_cache:
@@ -36,7 +36,7 @@ jobs:
     working_directory: ~/repo
     docker:
       # the Docker image with Cypress dependencies
-      - image: python:3.6
+      - image: python:3.7
         environment:
           ## this enables colors in the output
           TERM: xterm
@@ -44,7 +44,7 @@ jobs:
       - checkout
       - restore_cache:
           key: deps9-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run: 
+      - run:
           name: Pip Install
           command: pip install -r requirements.txt
       - save_cache:
@@ -67,4 +67,3 @@ workflows:
     jobs:
       - build_python2
       - build_python3
-
