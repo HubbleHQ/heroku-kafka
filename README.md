@@ -103,39 +103,41 @@ If you come across any issues feel free to fork and create a PR!
 
 ## Setup
 
-Fork the repo, setup virtualenv and pip install
+Fork the repo, requires [Docker](https://www.docker.com/products/docker-desktop)
 
 ```bash
 >>> git clone git@github.com:<fork-repo>.git
 >>> cd <fork-repo>
->>> virtualenv -p python3 venv
->>> source venv/bin/activate
->>> pip install -r requirements.txt
+>>> make dev-build
 ```
 
 Create a .env file with working kafka information (that includes 2 working topics at the moment).
 
 ```
-KAFKA_URL=""
-KAFKA_CLIENT_CERT=""
-KAFKA_CLIENT_CERT_KEY=""
-KAFKA_TRUSTED_CERT=""
-KAFKA_PREFIX=""
+KAFKA_URL=
+KAFKA_CLIENT_CERT=
+KAFKA_CLIENT_CERT_KEY=
+KAFKA_TRUSTED_CERT=
+KAFKA_PREFIX=
 
-TOPIC1=""
-TOPIC2=""
+TOPIC1=
+TOPIC2=
 ```
+
+NOTE: The way docker reads .env files is a bit strange. You can't have any quotes around your variable values and no new lines, replace all new lines with `\n`.
 
 ## Tests
 
+**The only way to check to see if the package work is to run the tests.**
+
 Please make sure that any extra code you write comes with a test, it doesn't need to be over the top but just check what you have written works.
 
-All tests at the moment require a working kafka setup as its pretty hard to check it is connecting correctly without them. This means it will also require an internet connection.
+All tests at the moment require a working kafka setup as its pretty hard to check it is connecting correctly without them. This means it will also require an internet connection. You can copy across the connection details from heroku's kafka environment variables - also note you will need 2 test topics.
 
 To run the tests:
 
 ```bash
->>> python test.py
+>>> make dev-test
 ```
 
 ## Distribution
