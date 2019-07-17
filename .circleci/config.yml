@@ -153,8 +153,6 @@ workflows:
             - build
             - test_python2
             - test_python3
-  deploy:
-    jobs:
       - hold:
           type: approval
           requires:
