@@ -1,15 +1,55 @@
 version: 2
 
+# Base python 3 setup 
+python3: &python3
+  working_directory: ~/repo
+  docker:
+    # the Docker image with Cypress dependencies
+    - image: python:3.7
+      environment:
+        ## this enables colors in the output
+        TERM: xterm
+
+# Base python 2 setup 
+python2: &python2
+  working_directory: ~/repo
+  docker:
+    # the Docker image with Cypress dependencies
+    - image: python:2.7
+      environment:
+        ## this enables colors in the output
+        TERM: xterm
+
 jobs:
+  build:
+    # Main build process
+    <<: *python3
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          name: Pip Install
+          command: pip install -r requirements.txt
+      - save_cache:
+          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
+      - run:
+          name: Build dist
+          command: python setup.py sdist bdist_wheel
+      - run:
+          name: Check dist
+          command: python -m twine check dist/*
+       - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - dist
+
   test_python2:
     # Main build process
-    working_directory: ~/repo
-    docker:
-      # the Docker image with Cypress dependencies
-      - image: python:2.7
-        environment:
-          ## this enables colors in the output
-          TERM: xterm
+    <<: *python2
     steps:
       - checkout
       - restore_cache:
@@ -33,13 +73,7 @@ jobs:
 
   test_python3:
     # Main build process
-    working_directory: ~/repo
-    docker:
-      # the Docker image with Cypress dependencies
-      - image: python:3.7
-        environment:
-          ## this enables colors in the output
-          TERM: xterm
+    <<: *python3
     steps:
       - checkout
       - restore_cache:
@@ -61,9 +95,58 @@ jobs:
           path: test-results
           destination: tr1
 
+  deploy_test:
+    # Main build process
+    <<: *python3
+    steps:
+      # Checkout git repo
+      - checkout
+      # Attach the public repo created in the build task
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Upload to PYPI test
+          command: python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+  
+  deploy:
+    # Main build process
+    <<: *python3
+    steps:
+      # Checkout git repo
+      - checkout
+      # Attach the public repo created in the build task
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Upload to PYPI
+          command: python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+
 workflows:
   version: 2
   build_and_test:
     jobs:
+      - build
       - test_python2
       - test_python3
+      - deploy_test:
+          requires:
+            - build
+            - test_python2
+            - test_python3
+          filters:
+            branches:
+              only: master
+  deploy:
+    jobs:
+      - hold:
+          type: approval
+          requires:
+            - deploy_test
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - hold
+
+    
