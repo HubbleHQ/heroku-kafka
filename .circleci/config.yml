@@ -1,6 +1,6 @@
 version: 2
 
-# Base python 3 setup 
+# Base python 3 setup
 python3: &python3
   working_directory: ~/repo
   docker:
@@ -10,7 +10,7 @@ python3: &python3
         ## this enables colors in the output
         TERM: xterm
 
-# Base python 2 setup 
+# Base python 2 setup
 python2: &python2
   working_directory: ~/repo
   docker:
@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Check dist
           command: python -m twine check dist/*
-       - persist_to_workspace:
+      - persist_to_workspace:
           root: ~/repo
           paths:
             - dist
@@ -107,7 +107,7 @@ jobs:
       - run:
           name: Upload to PYPI test
           command: python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-  
+
   deploy:
     # Main build process
     <<: *python3
@@ -148,5 +148,3 @@ workflows:
       - deploy:
           requires:
             - hold
-
-    
