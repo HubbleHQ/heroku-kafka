@@ -2,12 +2,12 @@
 
 **THIS IS AN UNOFFICIAL PACKAGE**
 
-Heroku Kafka is a python package to help you get setup quickly and easily with Kafka on Heroku. There is an [offical package](https://github.com/heroku/kafka-helper) that is possibly more secure however it has not been updated to support python 3 correctly and does not seem to be maintained anymore. 
-
+Heroku Kafka is a python package to help you get setup quickly and easily with Kafka on Heroku. There is an [offical package](https://github.com/heroku/kafka-helper) that is possibly more secure however it has not been updated to support python 3 correctly and does not seem to be maintained anymore.
 
 ## Install
 
 The easiest way to install the package is through pip.
+
 ```
 pip install heroku-kafka
 ```
@@ -47,8 +47,8 @@ producer.send('topic_without_prefix', b"some message")
 
 For all other methods and properties refer to: [KafkaProducer Docs](https://kafka-python.readthedocs.io/en/master/apidoc/KafkaProducer.html).
 
-
 ### Consumer
+
 ```python
 from heroku_kafka import HerokuKafkaConsumer
 
@@ -92,44 +92,63 @@ for msg in consumer:
 
 For all other methods and properties refer to: [KafkaConsumer Docs](https://kafka-python.readthedocs.io/en/master/apidoc/KafkaConsumer.html).
 
-## Known Issues 
+## Known Issues
+
 - `.assign` does not add in the topic prefix.
 - .NamedTemporaryFile may not work properly on a Windows system
 
 ## Contribution
+
 If you come across any issues feel free to fork and create a PR!
 
 ## Setup
-Fork the repo, setup virtualenv and pip install
+
+Fork the repo, requires [Docker](https://www.docker.com/products/docker-desktop)
+
 ```bash
 >>> git clone git@github.com:<fork-repo>.git
 >>> cd <fork-repo>
->>> virtualenv -p python3 venv
->>> source venv/bin/activate
->>> pip install -r requirements.txt
+>>> make dev-build
 ```
 
-Create a .env file with working kafka information (that includes 2 working topics at the moment). 
-```
-KAFKA_URL=""
-KAFKA_CLIENT_CERT=""
-KAFKA_CLIENT_CERT_KEY=""
-KAFKA_TRUSTED_CERT=""
-KAFKA_PREFIX=""
+Create a .env file with working kafka information (that includes 2 working topics at the moment).
 
-TOPIC1=""
-TOPIC2=""
 ```
+KAFKA_URL=
+KAFKA_CLIENT_CERT=
+KAFKA_CLIENT_CERT_KEY=
+KAFKA_TRUSTED_CERT=
+KAFKA_PREFIX=
+
+TOPIC1=
+TOPIC2=
+```
+
+NOTE: The way docker reads .env files is a bit strange. You can't have any quotes around your variable values and no new lines, replace all new lines with `\n`.
 
 ## Tests
+
+**The only way to check to see if the package work is to run the tests.**
+
 Please make sure that any extra code you write comes with a test, it doesn't need to be over the top but just check what you have written works.
 
-All tests at the moment require a working kafka setup as its pretty hard to check it is connecting correctly without them. This means it will also require an internet connection.
+All tests at the moment require a working kafka setup as its pretty hard to check it is connecting correctly without them. This means it will also require an internet connection. You can copy across the connection details from heroku's kafka environment variables - also note you will need 2 test topics.
 
 To run the tests:
+
 ```bash
->>> python test.py
+>>> make dev-test
 ```
 
 ## Distribution
-To distribute the package follow these instructions:[https://packaging.python.org/tutorials/packaging-projects/](https://packaging.python.org/tutorials/packaging-projects/).
+
+To create & upload the package:
+
+```bash
+>>> make package
+>>> make upload
+```
+
+NOTE: You will need to login to PIP to upload the package.
+
+[https://packaging.python.org/tutorials/packaging-projects/](https://packaging.python.org/tutorials/packaging-projects/)

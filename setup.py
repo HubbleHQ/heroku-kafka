@@ -28,6 +28,6 @@ setup(
     license='MIT',
     py_modules=["heroku_kafka"],
     install_requires=[
-        'kafka-python==1.3.5',
+        'kafka-python==1.4.6',
     ]
 )
