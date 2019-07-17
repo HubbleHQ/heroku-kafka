@@ -153,18 +153,12 @@ workflows:
             - build
             - test_python2
             - test_python3
-          filters:
-            branches:
-              only: master
   deploy:
     jobs:
       - hold:
           type: approval
           requires:
             - deploy_test
-          filters:
-            branches:
-              only: master
       - deploy:
           requires:
             - hold
