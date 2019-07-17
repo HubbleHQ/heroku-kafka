@@ -12,7 +12,7 @@ with open(path.join(here, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 setup(
-    version="2.1.1",  # Update the version number for new releases
+    version="2.1.2",  # Update the version number for new releases
     name="heroku-kafka",  # This is the name of your PyPI-package.
     description="Python kafka package for use with heroku's kafka.",
     long_description=long_description,
