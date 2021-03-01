@@ -169,7 +169,7 @@ workflows:
             - test_python3
           filters:
             branches:
-              only: master
+              only: main
       - deploy:
           context:
             - hubblehq-docker
@@ -177,4 +177,4 @@ workflows:
             - deploy_test
           filters:
             branches:
-              only: master
+              only: main
