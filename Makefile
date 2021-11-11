@@ -21,3 +21,12 @@ upload-test: ## Upload the dist package to pypi test server
 upload: ## Upload the dist package to pypi server
 	docker-compose run $(PYTHON_3_BUILD) python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
 
+.PHONY: dev-shell
+dev-shell: ## Creates a shell in the project container
+	docker-compose run --rm $(PROJECT_NAME) bash
+
+.PHONY: help
+help: ## This message
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+.DEFAULT_GOAL := help
