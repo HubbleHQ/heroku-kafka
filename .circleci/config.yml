@@ -19,16 +19,9 @@ jobs:
     <<: *python3
     steps:
       - checkout
-      - restore_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: Pip Install
           command: pip install -r requirements.txt
-      - save_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
       - run:
           name: Build dist
           command: python setup.py sdist bdist_wheel
@@ -45,16 +38,9 @@ jobs:
     <<: *python3
     steps:
       - checkout
-      - restore_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: Pip Install
           command: pip install -r requirements.txt
-      - save_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
       - run:
           name: Run Tests
           command: python test.py
@@ -70,16 +56,9 @@ jobs:
     steps:
       # Checkout git repo
       - checkout
-      - restore_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: Pip Install
           command: pip install -r requirements.txt
-      - save_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
       # Attach the public repo created in the build task
       - attach_workspace:
           at: ~/repo
@@ -93,16 +72,9 @@ jobs:
     steps:
       # Checkout git repo
       - checkout
-      - restore_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: Pip Install
           command: pip install -r requirements.txt
-      - save_cache:
-          key: deps3_7-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
       # Attach the public repo created in the build task
       - attach_workspace:
           at: ~/repo
