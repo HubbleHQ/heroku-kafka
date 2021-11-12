@@ -21,7 +21,11 @@ jobs:
       - checkout
       - run:
           name: Pip Install
-          command: pip install -r requirements.txt
+          command: |
+            pip install pipenv
+      - run:
+          command: |
+            pip install --system --deploy
       - run:
           name: Build dist
           command: python setup.py sdist bdist_wheel
@@ -40,7 +44,11 @@ jobs:
       - checkout
       - run:
           name: Pip Install
-          command: pip install -r requirements.txt
+          command: |
+            pip install pipenv
+      - run:
+          command: |
+            pip install --system --deploy
       - run:
           name: Run Tests
           command: python test.py
@@ -58,7 +66,11 @@ jobs:
       - checkout
       - run:
           name: Pip Install
-          command: pip install -r requirements.txt
+          command: |
+            pip install pipenv
+      - run:
+          command: |
+            pip install --system --deploy
       # Attach the public repo created in the build task
       - attach_workspace:
           at: ~/repo
@@ -74,7 +86,11 @@ jobs:
       - checkout
       - run:
           name: Pip Install
-          command: pip install -r requirements.txt
+          command: command: |
+            pip install pipenv
+      - run:
+          command: |
+            pip install --system --deploy
       # Attach the public repo created in the build task
       - attach_workspace:
           at: ~/repo
