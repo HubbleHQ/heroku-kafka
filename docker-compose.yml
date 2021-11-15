@@ -3,10 +3,24 @@ services:
   python3:
     build:
       context: .
-      dockerfile: ./dockerfiles/python3.7/Dockerfile
+      dockerfile: Dockerfile
     env_file:
       - .env
     volumes:
       - .:/src
     stdin_open: true
     tty: true
+  heroku-kafka:
+    container_name: "heroku-kafka"
+    build: .
+    volumes:
+      - .:/src
+    stdin_open: true
+    tty: true
+    networks:
+      - default
+      - hubble-network
+networks:
+  hubble-network:
+    external:
+      name: hubble-network
