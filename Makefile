@@ -1,4 +1,4 @@
-export PROJECT_NAME := $(notdir $(CURDIR))
+export PROJECT_NAME := $(shell echo "$${PWD\#\#*/}")
 PYTHON_3_BUILD := python3
 
 .PHONY: dev-build
