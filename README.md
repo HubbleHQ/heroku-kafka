@@ -1,8 +1,10 @@
+> This project has been archived, and the package should not be used. There is an [offical package](https://github.com/heroku/kafka-helper) that may better suit your needs.
+
 # Heroku Kafka &middot; [![CircleCI](https://circleci.com/gh/HubbleHQ/heroku-kafka.svg?style=shield)](https://circleci.com/gh/HubbleHQ/heroku-kafka)
 
 **THIS IS AN UNOFFICIAL PACKAGE**
 
-Heroku Kafka is a python package to help you get setup quickly and easily with Kafka on Heroku. There is an [offical package](https://github.com/heroku/kafka-helper) that is possibly more secure however it has not been updated to support python 3 correctly and does not seem to be maintained anymore.
+Heroku Kafka is a python package to help you get setup quickly and easily with Kafka on Heroku.
 
 ## Install
 
